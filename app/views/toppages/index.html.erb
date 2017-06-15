@@ -3,7 +3,9 @@
     <div class="cover-inner">
       <div class="cover-contents">
         <h1>BRIDGE CRAWLER</h1>
-        <a href="" class="btn btn-success btn-lg">Bridgeテストを始める</a>
+          <% unless logged_in? %>
+            <a href="" class="btn btn-success btn-lg">Bridgeテストを始める</a>
+          <% end %>
       </div>
     </div>
   </div>
