@@ -11,9 +11,46 @@
   </div>
 <% end %>
 
-<p>テスト例をランダムで二つ載せる</p>
-<div>
-  <div class=sampletest>翻訳テスト</div>
-  <div class=sampletest>ヒアリングテスト</div>
-</div>
+<% if logged_in? %>
+
+  <ul class="list-unstyled">
+    <li class="media">
+      <div class="media-left">
+        <img class="d-flex mr-3 img-circle" src="<%= image_path 'mountain.png' %>" alt="翻訳テスト image">
+      </div>
+      <div class="media-body">
+        <h5 class="mt-0 mb-1">翻訳テスト</h5>
+        単語から日本語を思い出し、実用的な言葉を覚えていきましょう。
+      </div>
+    </li>
+
+    <li class="media">
+      <div class="media-left">
+        <img class="d-flex mr-3 img-circle" src="<%= image_path 'rocket.png' %>" alt="ヒアリングテスト image">
+      </div>
+      <div class="media-body">
+        <h5 class="mt-0 mb-1">ヒアリングテスト</h5>
+        Youtubeを聞いて、日常役に立つ英単語をチェックしましょう。
+      </div>
+    </li>
+
+    <li class="media">
+      <div class="media-left">
+        <img class="d-flex mr-3 img-circle" src="<%= image_path 'chalkboard.png' %>" alt="あなたのスコア image">
+      </div>
+      <div class="media-body">
+        <h5 class="mt-0 mb-1">あなたのスコア</h5>
+        今までのあなたのテスト結果を参照できます。勉強の参考にしてくださいね。
+      </div>
+    </li>
+
+  </ul>
+
+<% else %>
+  <p>テスト例をランダムで二つ載せる</p>
+  <div>
+    <div class=sampletest>翻訳テスト</div>
+    <div class=sampletest>ヒアリングテスト</div>
+  </div>
+<% end %>
 
