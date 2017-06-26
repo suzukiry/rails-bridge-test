@@ -7,4 +7,10 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
 
   has_secure_password
+
+  has_many :tests
+
+  has_many :mastered_entries
+  has_many :show_mentries, through: :mastered_entries, source: :entry
+
 end

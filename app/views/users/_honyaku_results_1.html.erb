@@ -1,0 +1,11 @@
+<div>honyaku_test_results 1 !!!</div>
+<% if @tested_entry_1.result.is_a?(TrueClass) then %>
+  Good.
+<% else %>
+  Wrong.
+<% end %>
+<div>
+<%= @test_entry_1.description %>
+<%= @test_entry_1.youtube_url %>
+</div>
+

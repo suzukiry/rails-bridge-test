@@ -1,0 +1,10 @@
+<div id="honyaku_startpage">
+    <%= render 'users/honyaku_startpage' %>
+</div>
+<div id="honyaku_test">
+    <%= render 'users/honyaku_tests', test_entries: @test_entries, option_arrays: @option_arrays %>
+</div>
+<div id="test_record">
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<%= javascript_include_tag 'application' %>

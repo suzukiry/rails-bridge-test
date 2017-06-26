@@ -25,7 +25,8 @@ namespace :scraping do
         #p post.css('iframe')
         
         #p post.css('iframe')[0].class
-        p post.css('iframe')[0].to_html
+        #p post.css('iframe')[0].to_html
+        
         #p post.xpath('//iframe').to_html
         p post.xpath('//iframe').attribute('src').value
         

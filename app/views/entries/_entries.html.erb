@@ -1,0 +1,18 @@
+<% if entries %>
+  <div class="row">
+    <% entries.each do |entry| %>
+      <div class="item">
+        <div class="col-md-3 col-sm-4 col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading text-center">
+              <img src="<%= entry.image_url %>" alt="" >
+            </div>
+            <div class="panel-body">
+              <p class="item-title"><%= entry.eng_word %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

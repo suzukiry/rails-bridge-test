@@ -1,0 +1,17 @@
+$('#result1').html(
+  "<%= escape_javascript(render 'honyaku_results_1') %>"
+);
+
+$('#result2').html(
+  "<%= escape_javascript(render 'honyaku_results_2') %>"
+);
+
+$(function(){
+    setTimeout(function(){
+      $('#test_record').html(
+        "<%= escape_javascript(render 'test_record') %>"
+      );
+    },1000);
+});
+
+

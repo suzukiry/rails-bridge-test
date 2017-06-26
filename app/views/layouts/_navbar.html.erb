@@ -15,10 +15,10 @@
 
           <% if logged_in? %>
             <li>
-              <a href="#">
+              <%= link_to honyaku_user_path(current_user) do %>
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 翻訳テスト
-                </a>
+              <% end %>
             </li>
 
             <li class="dropdown">

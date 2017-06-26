@@ -15,13 +15,15 @@
 
   <ul class="list-unstyled">
     <li class="media">
-      <div class="media-left">
-        <img class="d-flex mr-3 img-circle" src="<%= image_path 'mountain.png' %>" alt="翻訳テスト image">
-      </div>
-      <div class="media-body">
-        <h5 class="mt-0 mb-1">翻訳テスト</h5>
-        単語から日本語を思い出し、実用的な言葉を覚えていきましょう。
-      </div>
+      <%= link_to honyaku_user_path(current_user) do %>
+        <div class="media-left">
+            <img class="d-flex mr-3 img-circle" src="<%= image_path 'mountain.png' %>" alt="翻訳テスト image">
+        </div>
+        <div class="media-body">
+          <h5 class="mt-0 mb-1">翻訳テスト</h5>
+          単語から日本語を思い出し、実用的な言葉を覚えていきましょう。
+        </div>
+      <% end %>
     </li>
 
     <li class="media">

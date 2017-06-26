@@ -7,6 +7,13 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   
   get 'signup', to: 'users#new'
-  resources :users, only: [:show, :new, :create]
+  resources :users, only: [:show, :new, :create] do
+    member do
+      get :honyaku
+      post :honyaku_result
+    end
+  end
+
+  resources :entries, only: [:show]
 
 end
