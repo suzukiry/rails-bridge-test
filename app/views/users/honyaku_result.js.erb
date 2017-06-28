@@ -1,17 +1,36 @@
-$('#result1').html(
-  "<%= escape_javascript(render 'honyaku_results_1') %>"
-);
+function getRandomTimeforResult() {
+  return Math.floor(Math.random() * 501 ) + 500;
+}
 
-$('#result2').html(
-  "<%= escape_javascript(render 'honyaku_results_2') %>"
-);
+
 
 $(function(){
-    setTimeout(function(){
-      $('#test_record').html(
-        "<%= escape_javascript(render 'test_record') %>"
-      );
-    },1000);
+  $('#result1').hide();
+  $('#result1').html(
+    "<%= escape_javascript(render 'honyaku_results_1') %>"
+  );
+  $('#result1').fadeIn(getRandomTimeforResult());
+  
 });
 
+$(function(){
+  $('#result2').hide();
+  $('#result2').html(
+    "<%= escape_javascript(render 'honyaku_results_2') %>"
+  );
+  $('#result2').fadeIn(getRandomTimeforResult());
+  
+});
+$(function(){
+
+  $('#test_record, #test_end_button').hide();
+  $('#test_record').html(
+      "<%= escape_javascript(render 'test_record') %>"
+    );
+  $('#test_record, #test_end_button').fadeIn(1000);
+
+});
+
+
+  
 

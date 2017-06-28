@@ -50,9 +50,17 @@ footer {
 }
 
 
-/**
+/* ***************************************************** 
+ * test end button 
+ ***************************************************** */
+ 
+#test_end_button {
+    display: none;
+}
+
+/* ***************************************************** 
  * honyaku_test 
- */
+ ***************************************************** */
  
 #honyaku_test {
     display: none;
@@ -69,6 +77,7 @@ footer {
 	background:#fff; border:1px solid #ddd; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); margin: 15px 0; overflow:hidden;
 }
 
+/*
 .offer:hover {
     -webkit-transform: scale(1.1); 
     -moz-transform: scale(1.1); 
@@ -80,6 +89,7 @@ footer {
     -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
 }
+*/
 .shape {
 	border-color: rgba(255,255,255,0) #d9534f rgba(255,255,255,0) rgba(255,255,255,0);
 }
@@ -149,8 +159,6 @@ footer {
 /**
  * test_record
  */
-body {padding-top:50px;}
-
 .box {
     border-radius: 3px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
