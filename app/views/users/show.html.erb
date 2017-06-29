@@ -1,8 +1,23 @@
-<div class="user-profile">
-  <div class="icon text-center">
-    <img src="<%= gravatar_url(@user, size: 100) %>" alt="">
-  </div>
-  <div class="name text-center">
-    <h1><%= @user.name %></h1>
+<div class="row">
+  <aside class="col-xs-3">
+    <div class ="panel panel-default" >
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= @user.name %></h3>
+      </div>
+      <div class="panel-body">
+        <img class="media-object img-rounded img-responsive" src="<%= gravatar_url(@user, { size: 100 }) %>" alt="">
+      </div>
+    </div>
+  </aside>
+  <div class="col-xs-8">
+    <% @tests.each do |test|  %> 
+      <div class="date-group honyaku-result">
+        <div class="info">
+          <span><%= test.test_date %><span>
+          <%= p "show.html:(#{test.test_date})" %>
+          <%= render 'users/test_template', test_id: test.id %>
+        </div>
+      </div>
+    <% end %> 
   </div>
 </div>

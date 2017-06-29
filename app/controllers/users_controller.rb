@@ -1,10 +1,15 @@
 class UsersController < ApplicationController
 
   before_action :require_user_logged_in, only: [:show]
+  
+  include UsersHelper
+  
   TEST_NUM = 2
   
   def show
     @user = User.find(params[:id])
+    @tests = @user.tests.order("test_date desc")
+    
   end
 
   def new
@@ -33,6 +38,7 @@ class UsersController < ApplicationController
     if test.save
       flash[:success] = 'テスト作成に成功'
       test.populate(create_entry_array(TEST_NUM,entry_count))
+      test.update(test_date: Time.now)
     else
       #@microposts = current_user.feed_microposts.order('created_at DESC').page(params[:page])
       #flash.now[:danger] = 'テスト作成に失敗'
@@ -67,20 +73,14 @@ class UsersController < ApplicationController
       end
       @tested_entries.where(entry_id: test_entry_id).update(result: result)
     end
-
+    test.update_attributes(score: test_score(@test_id), ended_at: Time.now)
+    
     # Ready variables for view
-    p "=====================(#{@test_entries.first.class})"
     test_entry_1 = @test_entries.first
-    test_entry_2 = @test_entries.second
-    p "=====================(#{test_entry_1.jpn_word})"
-    p "=====================(#{test_entry_2.jpn_word})"
+    test_entry_2 = @test_entries.second #ほかのユーザが混ざるとこれだとダメ。配列に移さないと。。
 
     tested_entry_1 = @tested_entries.first
-    tested_entry_2 = @tested_entries.first.next
-    p "****************** tested_entry (#{tested_entry_1.entry_id})"
-    p "****************** tested_entry (#{tested_entry_1.result})"
-    p "****************** tested_entry (#{tested_entry_2.entry_id})"
-    p "****************** tested_entry (#{tested_entry_2.result})"
+    tested_entry_2 = @tested_entries.first.next #ほかのユーザが混ざるとこれだとダメ。配列に移さないと。。
 
     @test_entry_1 = test_entry_1
     @test_entry_2 = test_entry_2
