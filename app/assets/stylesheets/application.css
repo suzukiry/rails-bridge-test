@@ -168,13 +168,13 @@ footer {
     margin-top: 60px;
 }
 .box-icon {
-    background-color: #57a544;
+    background-color: #428bca;
     border-radius: 50%;
     display: table;
-    height: 100px;
+    height: 80px;
     margin: 0 auto;
-    width: 100px;
-    margin-top: -61px;
+    width: 80px;
+    margin-top: -71px;
 }
 .box-icon span {
     color: #fff;
