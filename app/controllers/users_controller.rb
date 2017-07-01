@@ -29,15 +29,18 @@ class UsersController < ApplicationController
 
   end
 
+  # 翻訳テスト
   def honyaku
     option_id_arrays = Array.new
-    entry_count = Entry.count
-
+    #entry_count = Entry.count
+    # post_type = 2 : 翻訳テスト
+    post_type = 2
     test = current_user.tests.build
 
     if test.save
       flash[:success] = 'テスト作成に成功'
-      test.populate(create_entry_array(TEST_NUM,entry_count))
+#      test.populate(create_entry_array(TEST_NUM,entry_count))
+      test.create_entry(TEST_NUM, post_type)
       test.update(test_date: Time.now)
     else
       #@microposts = current_user.feed_microposts.order('created_at DESC').page(params[:page])
@@ -48,7 +51,8 @@ class UsersController < ApplicationController
     @test_entries = test.show_entries.order("`tested_entries`.`id` asc")
     @test_entries.each do |test_entry|
 
-      option_id_arrays << create_option_array(test_entry.id, entry_count)
+#      option_id_arrays << create_option_array(test_entry.id, entry_count)
+       option_id_arrays << create_answer_array(TEST_NUM, test_entry.id, post_type)
     end
     @option_arrays = id_to_jpn_word(option_id_arrays)
   end
@@ -95,6 +99,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
+=begin 
   # テスト用のエントリーのIDをランダムに作成 
   def create_entry_array(test_num, max_entry_num)
     random_entry_array = Array.new
@@ -107,6 +112,43 @@ class UsersController < ApplicationController
     	random_entry_array << entry_number
     }
     return random_entry_array
+  end
+
+  # テスト用のエントリーのIDをランダムに作成 
+  
+
+  def create_random_id_array(test_num, post_type)
+    random_random_id_array = Array.new
+    random = Random.new
+  
+    (1..test_num).each{|num|
+    	begin 
+    		entry_number = random.rand(1..max_entry_num)
+    	end while random_entry_array.include?(entry_number)
+    	random_entry_array << entry_number
+    }
+    return random_entry_array
+  end
+=end
+
+  # テストの選択肢用のArrayを作成  
+  def create_answer_array(test_num, answer, post_type)
+
+    random_answer_array = Array.new
+    #random = Random.new
+    random_answer_array  << answer
+  
+    (1..test_num).each{|num|
+    #	entry_number = random.rand(1..max_entry_num)
+      entry_number = Entry.where(post_type: post_type).pluck(:id).sample
+    	while random_answer_array.include?(entry_number)
+        #entry_number = random.rand(1..max_entry_num)
+        entry_number = Entry.where(post_type: post_type).pluck(:id).sample
+    	end
+    	random_answer_array << entry_number
+    }
+    random_answer_array.shuffle!
+    return random_answer_array
   end
 
   # テストの選択肢用のArrayを作成  

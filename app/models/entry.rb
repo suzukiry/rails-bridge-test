@@ -1,7 +1,5 @@
 class Entry < ApplicationRecord
 
-  validates :eng_word, presence: true
-  validates :jpn_word, presence: true
   validates :description, presence: true
 
   has_many :tested_entries  

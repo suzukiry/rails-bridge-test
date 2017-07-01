@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170629023032) do
+ActiveRecord::Schema.define(version: 20170701055218) do
 
   create_table "entries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "post_type"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20170629023032) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.date     "post_date"
+    t.string   "title"
   end
 
   create_table "mastered_entries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
