@@ -8,13 +8,19 @@
         <img class="media-object img-rounded img-responsive" src="<%= gravatar_url(@user, { size: 100 }) %>" alt="">
       </div>
     </div>
+    <div>
+      <div id="test-circle1"></div>
+    </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <%= javascript_include_tag 'jquery.circliful.min' %>
+    <%= javascript_include_tag 'chart' %>
   </aside>
+
   <div class="col-xs-8">
     <% @tests.each do |test|  %> 
       <div class="date-group honyaku-result">
         <div class="info">
-          <span><%= test.test_date %><span>
-          <%= p "show.html:(#{test.test_date})" %>
+          <span><%= test.test_date.in_time_zone('Tokyo').strftime('%Y/%m/%d %H:%M')  %><span>
           <%= render 'users/test_template', test_id: test.id %>
         </div>
       </div>

@@ -8,7 +8,3 @@ $(".honyaku_start").click(function() {
 $(".honyaku_submit").click(function() {
     $("#honyaku_submit").fadeOut();
 });
-
-
-//$(function(){
-//});

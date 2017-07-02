@@ -1,10 +1,19 @@
-<div>honyaku_test_results 2 !!!</div>
 <% if @tested_entry_2.result.is_a?(TrueClass) then %>
   Good.
 <% else %>
   Wrong.
 <% end %>
 <div>
-<%= @test_entry_2.description %>
-<%= @test_entry_2.youtube_url %>
+
+<div id="description_2"></div>
+<%= javascript_tag do %>
+  html= <%= raw @test_entry_2.description.to_json %>;
+  console.log(html)
+  function writeHtml() {
+    document.getElementById("description_2").innerHTML = html;
+  }
+  writeHtml();
+<% end %>
+<iframe width="560" height="315" src="<%= @test_entry_2.youtube_url %>" frameborder="0" allowfullscreen=""></iframe>
+
 </div>

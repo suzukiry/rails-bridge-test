@@ -26,35 +26,58 @@ class UsersController < ApplicationController
       flash.now[:danger] = 'ユーザの登録に失敗しました。'
       render :new
     end
-
   end
 
   # 翻訳テスト
   def honyaku
     option_id_arrays = Array.new
-    #entry_count = Entry.count
+
     # post_type = 2 : 翻訳テスト
     post_type = 2
-    test = current_user.tests.build
 
-    if test.save
-      flash[:success] = 'テスト作成に成功'
-#      test.populate(create_entry_array(TEST_NUM,entry_count))
-      test.create_entry(TEST_NUM, post_type)
-      test.update(test_date: Time.now)
+    #初回ログイン時
+    if current_user.tests.last.nil? then #post_type毎に分ける必要あり
+      
+        test = current_user.tests.build
+        if test.save then
+          flash[:success] = 'テスト作成に成功'
+          test.create_entry(TEST_NUM, post_type)
+          test.update(test_date: Time.now)
+        else
+          flash.now[:danger] = 'テスト作成に失敗'
+          render 'toppages/index'
+        end
+
+    #2回目以降
     else
-      #@microposts = current_user.feed_microposts.order('created_at DESC').page(params[:page])
-      #flash.now[:danger] = 'テスト作成に失敗'
-      #render 'toppages/index'
+      #残テストあり
+      if current_user.tests.last.ended_at.nil? then #post_type毎に分ける必要あり
+        test = current_user.tests.last
+      #残テストなし
+      else
+        test = current_user.tests.build
+        if test.save then
+          flash[:success] = 'テスト作成に成功'
+          test.create_entry(TEST_NUM, post_type)
+          test.update(test_date: Time.now)
+        else
+          flash.now[:danger] = 'テスト作成に失敗'
+          render 'toppages/index'
+        end
+      end
     end
-
+    
+    # 親問題を抽出
     @test_entries = test.show_entries.order("`tested_entries`.`id` asc")
+
+    # 親問題の選択肢問題を抽出
     @test_entries.each do |test_entry|
 
-#      option_id_arrays << create_option_array(test_entry.id, entry_count)
-       option_id_arrays << create_answer_array(TEST_NUM, test_entry.id, post_type)
+      # 選択肢問題を抽出
+      option_id_arrays << create_answer_array(TEST_NUM, test_entry.id, post_type)
     end
     @option_arrays = id_to_jpn_word(option_id_arrays)
+
   end
   
   def honyaku_result
@@ -80,12 +103,12 @@ class UsersController < ApplicationController
     test.update_attributes(score: test_score(@test_id), ended_at: Time.now)
     
     # Ready variables for view
-    test_entry_1 = @test_entries.first
-    test_entry_2 = @test_entries.second #ほかのユーザが混ざるとこれだとダメ。配列に移さないと。。
-
-    tested_entry_1 = @tested_entries.first
-    tested_entry_2 = @tested_entries.first.next #ほかのユーザが混ざるとこれだとダメ。配列に移さないと。。
-
+    test_entry_1 = @test_entries.to_a()[0]
+    test_entry_2 = @test_entries.to_a()[1]
+    
+    tested_entry_1 = @tested_entries.to_a()[0]
+    tested_entry_2 = @tested_entries.to_a()[1] 
+    
     @test_entry_1 = test_entry_1
     @test_entry_2 = test_entry_2
     @tested_entry_1 = tested_entry_1
@@ -99,50 +122,18 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
-=begin 
-  # テスト用のエントリーのIDをランダムに作成 
-  def create_entry_array(test_num, max_entry_num)
-    random_entry_array = Array.new
-    random = Random.new
-  
-    (1..test_num).each{|num|
-    	begin 
-    		entry_number = random.rand(1..max_entry_num)
-    	end while random_entry_array.include?(entry_number)
-    	random_entry_array << entry_number
-    }
-    return random_entry_array
-  end
-
-  # テスト用のエントリーのIDをランダムに作成 
-  
-
-  def create_random_id_array(test_num, post_type)
-    random_random_id_array = Array.new
-    random = Random.new
-  
-    (1..test_num).each{|num|
-    	begin 
-    		entry_number = random.rand(1..max_entry_num)
-    	end while random_entry_array.include?(entry_number)
-    	random_entry_array << entry_number
-    }
-    return random_entry_array
-  end
-=end
-
   # テストの選択肢用のArrayを作成  
   def create_answer_array(test_num, answer, post_type)
 
     random_answer_array = Array.new
-    #random = Random.new
+
+    # 正解を先行して追加
     random_answer_array  << answer
-  
+
+    # テスト項目数だけ、選択肢用の回答を格納
     (1..test_num).each{|num|
-    #	entry_number = random.rand(1..max_entry_num)
       entry_number = Entry.where(post_type: post_type).pluck(:id).sample
     	while random_answer_array.include?(entry_number)
-        #entry_number = random.rand(1..max_entry_num)
         entry_number = Entry.where(post_type: post_type).pluck(:id).sample
     	end
     	random_answer_array << entry_number
@@ -177,5 +168,4 @@ class UsersController < ApplicationController
     end
     return jpn_word_arrays
   end
-
 end

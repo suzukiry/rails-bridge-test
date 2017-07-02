@@ -45,8 +45,6 @@ namespace :scraping do
         posts = daily_posts.css('div.post-outer')
         posts.each do |new_post|
 
-
-
         # 2 eng_word, jpn_word
         p "eng_word, jpn_word: (#{new_post.css('h3').inner_text})"
 
@@ -91,12 +89,30 @@ namespace :scraping do
           description = new_post.css('div.post-body.entry-content').inner_html.gsub(/[\u00A0\n]/, '').strip
         end 
   
-        if eng_word.present? && jpn_word.present? then
+#        if eng_word.present? && jpn_word.present? then
+#          post_type = 2
+#        else if 
+#          post_type = 0
+#        end
+
+        if /なんと言うか？/ =~ title then
+          post_type = 1
+        elsif /^\w.+(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])$/ =~ title then  
           post_type = 2
+        elsif /^\w.+\w$/ =~ title then
+          post_type = 3
+        elsif /\A(?:\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+\z/ =~ title then
+          post_type = 4
+        elsif /医学英語/ =~ title then
+          post_type = 5
+        elsif /ヒアリングの練習問題/ =~ title then
+          post_type = 6
+        elsif /私の英語ノート/ =~ title then
+          post_type = 7
         else
-          post_type = 0
+          post_type = 8
         end
-        
+      
         p "POST_DATE (#{post_date})"
         
         new_entry = Entry.new

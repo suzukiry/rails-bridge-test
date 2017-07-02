@@ -1,6 +1,6 @@
 <header>
-  <nav class="navbar navbar-inverse navbar-static-top">
-    <div class="container">
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class = "container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
@@ -8,7 +8,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">BRIDGE CRAWLER</a>
+        <a class="navbar-left" href="/"><img src="<%= image_path 'bridge_crawler.PNG' %>" alt=""></a>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
@@ -16,7 +16,7 @@
           <% if logged_in? %>
             <li>
               <%= link_to honyaku_user_path(current_user) do %>
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-tree-conifer" aria-hidden="true"></span>
                 翻訳テスト
               <% end %>
             </li>
@@ -26,7 +26,6 @@
                 <span class="gravatar">
                   <img src="<%= gravatar_url(current_user, size: 20) %>" alt="" class="img-circle">
                 </span>
-                <%= current_user.name %>
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
