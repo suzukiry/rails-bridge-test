@@ -19,6 +19,32 @@ $(function(){
   $('#result2').fadeIn(getRandomTimeforResult());
   
 });
+
+$(function(){
+  $('#result3').hide();
+  $('#result3').html(
+    "<%= escape_javascript(render 'honyaku_results_3') %>"
+  );
+  $('#result3').fadeIn(getRandomTimeforResult());
+  
+});
+
+$(function(){
+  $('#result4').hide();
+  $('#result4').html(
+    "<%= escape_javascript(render 'honyaku_results_4') %>"
+  );
+  $('#result4').fadeIn(getRandomTimeforResult());
+});
+
+$(function(){
+  $('#result5').hide();
+  $('#result5').html(
+    "<%= escape_javascript(render 'honyaku_results_5') %>"
+  );
+  $('#result5').fadeIn(getRandomTimeforResult());
+});
+
 $(function(){
 
   $('#test_record, #test_end_button').hide();
@@ -28,7 +54,3 @@ $(function(){
   $('#test_record, #test_end_button').fadeIn(1000);
 
 });
-
-
-  
-

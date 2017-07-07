@@ -1,7 +1,9 @@
 <% num = 0 %>
+
+<div class="container">
+	<div class="row">
 <% if test_entries.any? %>
   <%= form_tag({ action: :honyaku_result }, id: :ajax_form, remote: true) do %>
-
     <% test_entries.each do |test_entry| %>
       <%= render 'users/honyaku_test', num: num, test_entry: test_entry, option_array: option_arrays[num] %>
       <% num += 1 %>
@@ -10,3 +12,5 @@
     <%= submit_tag '採点する', class: "honyaku_submit", id: "honyaku_submit" %>
 	<% end %>
 <% end %>
+	</div>
+</div>

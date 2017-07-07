@@ -9,11 +9,14 @@
     <%= csrf_meta_tags %>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <%= stylesheet_link_tag    'jquery.circliful' %>
+    <%= javascript_include_tag 'jquery.circliful.min' %>
 
   </head>
 
@@ -21,9 +24,9 @@
     <%= render 'layouts/navbar' %>
     <%= yield :cover %>
 
-    <div class="container">
       <%= render 'layouts/flash_messages' %>
-      
+
+    <div class="container">
       <%= yield %>
     </div>
   </body>

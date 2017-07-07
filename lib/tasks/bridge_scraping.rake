@@ -28,7 +28,7 @@ namespace :scraping do
 
   desc "retrieve title"
     task :bridge_scrape => :environment do 
-      URL = 'http://bridge-english.blogspot.jp/2017/03/'
+      URL = 'http://bridge-english.blogspot.jp/2017/04/'
       #URL = 'http://bridge-english.blogspot.jp/'
       #URL = 'http://bridge-english.blogspot.jp/2017/06/list.html'
       doc = Nokogiri::HTML.parse(open(URL), nil, "UTF-8") 

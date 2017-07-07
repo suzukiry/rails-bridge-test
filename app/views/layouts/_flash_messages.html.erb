@@ -1,3 +1,22 @@
 <% flash.each do |message_type, message| %>
-  <div class="alert alert-<%= message_type %>"><%= message %></div>
+
+	<div id="notification" class="notification">
+	    <div class="flash-message"><%= message %></div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		var def="black";
+		function showNotification(color){
+					$( "#notification" ).removeClass(def);
+					$( "#notification" ).addClass(color);
+					def=color;
+					$( "#notification" ).fadeIn( "slow" );
+					$(".notification").fadeOut(5000);
+		}
+		
+		$(document).ready(function() {
+			showNotification('blue');
+		});
+	</script>
+
 <% end %>

@@ -13,8 +13,9 @@
             <%= f.label :password, 'パスワード' %>
             <%= f.password_field :password, class: 'form-control' %>
           </div>
-
-          <%= f.submit 'ログイン', class: 'btn btn-primary btn-block' %>
+          <div class="text-right">
+            <%= f.submit 'ログイン', class: 'btn btn-primary' %>
+          </div>
         <% end %>
       </div>
     </div>

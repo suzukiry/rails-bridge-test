@@ -10,10 +10,13 @@
     </div>
     <div>
       <div id="test-circle1"></div>
+      <script>
+        $( document ).ready(function() {
+        $('#test-circle1').circliful();
+        });
+      </script>
     </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <%= javascript_include_tag 'jquery.circliful.min' %>
-    <%= javascript_include_tag 'chart' %>
+
   </aside>
 
   <div class="col-xs-8">

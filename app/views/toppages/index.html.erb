@@ -2,42 +2,50 @@
   <div class="cover">
     <div class="cover-inner">
       <div class="cover-contents">
-        <h1>BRIDGE CRAWLER</h1>
-          <% unless logged_in? %>
-            <a href="" class="btn btn-success btn-lg">Bridgeテストを始める</a>
-          <% end %>
+        <% unless logged_in? %>
+          <%= link_to "英語すこし勉強してみますか？", signup_path, class: "btn btn-primary" %>
+        <% end %>
       </div>
     </div>
   </div>
 <% end %>
 
 <% if logged_in? %>
-
-  <ul class="list-unstyled">
-    <li class="media">
-      <%= link_to honyaku_user_path(current_user) do %>
-        <div class="media-left">
-            <img class="d-flex mr-3 img-circle" src="<%= image_path 'mountain.png' %>" alt="翻訳テスト image">
+  <!-- メニュー画面を表示 -->
+  <div class="row menu-tiles">
+      <div class="col-sm-4">
+        <div class="menu-tile">
+          <h4>
+            <i class="fa fa-fw fa-check"></i>
+            翻訳テスト
+          </h4>
+          <p>単語から日本語を思い出し、実用的な言葉を覚えていきましょう。</p>
+          <%= button_to "翻訳テストへ", { controller: 'users', action: 'honyaku', id: current_user.id}, {method: :get, class: "btn btn-default"} %> 
         </div>
-        <div class="media-body">
-          <h5 class="mt-0 mb-1">翻訳テスト</h5>
-          単語から日本語を思い出し、実用的な言葉を覚えていきましょう。
+      </div>
+      <div class="col-sm-4">
+        <div class="menu-tile">
+          <h4>
+            <i class="fa fa-fw fa-check"></i>
+            あなたのスコア
+          </h4>
+          <p>今までのあなたのテスト結果を参照できます。勉強の参考にしてくださいね。</p>
+          <%= button_to "マイページへ", { controller: 'users', action: 'show', id: current_user.id}, {method: :get, class: "btn btn-default"} %>
         </div>
-      <% end %>
-    </li>
-
-    <li class="media">
-      <div class="media-left">
-        <img class="d-flex mr-3 img-circle" src="<%= image_path 'chalkboard.png' %>" alt="あなたのスコア image">
       </div>
-      <div class="media-body">
-        <h5 class="mt-0 mb-1">あなたのスコア</h5>
-        今までのあなたのテスト結果を参照できます。勉強の参考にしてくださいね。
+      <div class="col-sm-4">
+        <div class="menu-tile">
+          <h4>
+            <i class="fa fa-fw fa-check"></i>
+            (作成中) ヒアリングテスト
+          </h4>
+          <p>Youtubeから、役立つ英語を聞いて勉強していきましょう。</p>
+          <button type="button" class= "btn btn-default">作成中</button>
+        </div>
       </div>
-    </li>
-
-  </ul>
+  </div>
 
 <% else %>
+  <!-- 試しのテストを挿入 -->
 <% end %>
 

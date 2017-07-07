@@ -1,0 +1,20 @@
+<% if @tested_entry_3.result.is_a?(TrueClass) then %>
+  <img class="" src="<%= image_path 'awesome.png' %>" alt="awesome image">
+<% else %>
+  <img class="" src="<%= image_path 'ohshoot.png' %>" alt="ohshoot image">
+<% end %>
+
+<div>
+<div id="">Ans. <%= @test_entry_3.jpn_word %></div>
+<div id="description_3"></div>
+<%= javascript_tag do %>
+  html= <%= raw @test_entry_3.description.to_json %>;
+  console.log(html)
+  function writeHtml() {
+    document.getElementById("description_3").innerHTML = html;
+  }
+  writeHtml();
+<% end %>
+<iframe width="320" height="210" src="<%= @test_entry_3.youtube_url %>" frameborder="0" allowfullscreen=""></iframe>
+
+</div>

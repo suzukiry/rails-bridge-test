@@ -1,0 +1,32 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+			<div class="offer offer-radius offer-primary">
+				<div class="shape">
+					<div class="shape-text">
+						No.<%= num += 1 %>								
+					</div>
+				</div>
+				<div class="offer-content">
+		    <li class="media">
+    		  <div class="media-left">
+					<h3 class="lead">
+						<%= test_entry.eng_word %>	
+					</h3>						
+					<p>
+			      	<label><%= radio_button_tag "radio#{num}", option_array[0], true %><%= option_array[0] %></label>
+			      	<label><%= radio_button_tag "radio#{num}", option_array[1] %><%= option_array[1] %></label>
+			      	<label><%= radio_button_tag "radio#{num}", option_array[2] %><%= option_array[2] %></label>
+			      	<label><%= radio_button_tag "radio#{num}", 0 %>わからない</label>
+					</p>
+					</div>
+      		<div class ="media-body" >
+      			<div  id="result<%= num %>">TEST</div>	
+          </div>
+  			</li>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

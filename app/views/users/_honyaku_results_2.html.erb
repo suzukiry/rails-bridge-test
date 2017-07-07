@@ -1,9 +1,11 @@
 <% if @tested_entry_2.result.is_a?(TrueClass) then %>
-  Good.
+  <img class="" src="<%= image_path 'awesome.png' %>" alt="awesome image">
 <% else %>
-  Wrong.
+  <img class="" src="<%= image_path 'ohshoot.png' %>" alt="ohshoot image">
 <% end %>
+
 <div>
+<div id="">Ans. <%= @test_entry_2.jpn_word %></div>
 
 <div id="description_2"></div>
 <%= javascript_tag do %>
@@ -14,6 +16,6 @@
   }
   writeHtml();
 <% end %>
-<iframe width="560" height="315" src="<%= @test_entry_2.youtube_url %>" frameborder="0" allowfullscreen=""></iframe>
+<iframe width="320" height="210" src="<%= @test_entry_2.youtube_url %>" frameborder="0" allowfullscreen=""></iframe>
 
 </div>
