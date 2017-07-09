@@ -46,11 +46,15 @@ $(function(){
 });
 
 $(function(){
-
-  $('#test_record, #test_end_button').hide();
+  $('#test_record, #test_template_action').hide();
   $('#test_record').html(
       "<%= escape_javascript(render 'test_record') %>"
     );
-  $('#test_record, #test_end_button').fadeIn(1000);
+  $('#test_template_action').html(
+      "<%= escape_javascript(render 'honyaku_button') %>"
+    );
 
+  $('#test_record').fadeIn(1000);
 });
+
+

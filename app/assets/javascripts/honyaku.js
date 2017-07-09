@@ -1,7 +1,6 @@
 /*global $*/
 $(".honyaku_start").click(function() {
     $("#honyaku_startpage").fadeOut();
-
     $("#honyaku_test").delay(800).fadeIn();
 });
 

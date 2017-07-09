@@ -1,7 +1,7 @@
+<!-- テスト問題まとめパーシャル -->
 <% num = 0 %>
 
-<div class="container">
-	<div class="row">
+<!-- 翻訳テストパーシャル呼び出し -->
 <% if test_entries.any? %>
   <%= form_tag({ action: :honyaku_result }, id: :ajax_form, remote: true) do %>
     <% test_entries.each do |test_entry| %>
@@ -12,5 +12,3 @@
     <%= submit_tag '採点する', class: "honyaku_submit", id: "honyaku_submit" %>
 	<% end %>
 <% end %>
-	</div>
-</div>
