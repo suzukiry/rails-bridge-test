@@ -32,25 +32,20 @@ class UsersController < ApplicationController
 
     # post_type = 2 : 翻訳テスト
     post_type = 2
+    test = Test.new
 
-    #初回ログイン時
-#    if current_user.tests.empty?
-#      test = current_user.tests.build
-#        if test.save then
-#          flash[:success] = 'テスト作成に成功'
-#          test.create_entry(TEST_NUM, post_type)
-#          test.update(test_date: Time.now)
-#        else
-#          flash.now[:danger] = 'テスト作成に失敗'
-#          render 'toppages/index'
-#        end
-    #2回目以降
-#    else
-      #2回目以降 かつ 残テストあり の場合
-      if current_user.tests.exists? and current_user.tests.last.ended_at.blank? then #post_type毎に分ける必要あり
-        test = current_user.tests.last
-      #初回 または 残テストなし の場合
-      else
+    # 未実施のテストの存在確認
+    if current_user.tests.exists?(ended_at: nil)
+
+      # post_type=2の存在確認
+      current_user.tests.where(ended_at: nil).each do |existingtest|
+        # post_type=2がある場合
+        if existingtest.show_entries.last.post_type == post_type then
+          test = existingtest
+        end
+      end
+      # post_type=2がない場合
+      if test.id.blank?
         test = current_user.tests.build
 
         # テストの作成、テスト問題を作成
@@ -63,8 +58,20 @@ class UsersController < ApplicationController
           render 'toppages/index'
         end
       end
-#    end
-    
+    else
+      test = current_user.tests.build
+
+      # テストの作成、テスト問題を作成
+      if test.save then
+        test.create_entry(TEST_NUM, post_type)
+        test.update(test_date: Time.now)
+        flash[:success] = 'テスト作成に成功'
+      else
+        flash.now[:danger] = 'テスト作成に失敗'
+        render 'toppages/index'
+      end
+    end
+
     # 親問題(ユーザが正答を問われるエントリ)を抽出
     @test_entries = test.show_entries.order("`tested_entries`.`id` asc")
 
