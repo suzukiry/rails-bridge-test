@@ -2,12 +2,27 @@
 @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
 
 /* body */
+html {
+  height: 100%;
+}
 body {
   background: #f2f2f2;
   padding-top: 70px;
+  
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-footer {
+.footer {
   margin-top: 40px;
+  min-height: 50px;
+  background: #ffffff;
+  flex-shrink: 0; 
+  border-top: 1px solid #e2e2e2;
+  
+}
+.content {
+  flex: 1;
 }
 
 /* navbar */
@@ -66,10 +81,10 @@ ol, ul {
 
 .bridge-mypage-cell {
   background-color: #fff;
-  border-bottom: 1px solid #e2e2e2;
+  border: 1px solid #e2e2e2;
   margin: 0px;
   padding: 15px 18px 15px;
-    text-align: center;
+  text-align: center;
 }
 .bridge-mypage-box {
   padding: 5px 5px 5px;
@@ -111,9 +126,11 @@ ol, ul {
   text-align: center;
   /*margin-left: -15px;*/
   margin-bottom: 1px;
+  border: 1px solid #e2e2e2;
 }
 
 .testresult-date-group {
+  border: 1px solid #e2e2e2;
   background-color: #fff;
   /*border-bottom: 1px solid #e2e2e2;*/
   margin-bottom: 5px;
@@ -358,6 +375,7 @@ ul {
   background-color: #ffffff;
   margin-top:10px;
   padding: 30px;
+  border: 1px solid #e2e2e2;
 
 }
 
