@@ -59,14 +59,31 @@ ol, ul {
 /* ***************************************************** 
  * My page: date-group for honyaku test 
  ***************************************************** */
+
+.honyaku-pane {
+  min-height: 203px;
+}
+
 .bridge-mypage-cell {
   background-color: #fff;
   border-bottom: 1px solid #e2e2e2;
   margin: 0px;
   padding: 15px 18px 15px;
+    text-align: center;
 }
 .bridge-mypage-box {
   padding: 5px 5px 5px;
+}
+.bridge-mypage-box-position-graph {
+  min-height: 123.67px 
+}
+.bridge-mypage-box-position-font {
+  margin-top: -25px;
+  margin-right: -100px;
+  }
+
+.user-pane-honyaku-score {
+  font-size:24px;
 }
 
 .user-pane-heading {
@@ -82,7 +99,7 @@ ol, ul {
 .user-pane-font-small {
   color: #333;
   font-size: 12px;
-  text-align: center;
+
 }
 .testresult-header {
   background-color: #fff;

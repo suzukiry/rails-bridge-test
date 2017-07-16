@@ -45,12 +45,14 @@ module UsersHelper
     result_collection << passed_word_array << failed_word_array
     return result_collection
   end
-
-  def result_dategroup(tests)
+  
+  #各日付ごとのテスト結果を返却
+  #ex) [["2017-07-31 UTC XX:XX:XX",tests object],["2017-07-30 UTC XX:XX:XX", tests object],,,]
+  def result_dategroup(user_id, tests)
     dategroup_array = []
     
     con = ActiveRecord::Base.connection
-    date_array = con.select_values("select DATE_FORMAT(convert_tz(test_date,'UTC','Asia/Tokyo'), '%Y-%m-%d') from tests where user_id =1 group by DATE_FORMAT(convert_tz(test_date,'UTC','Asia/Tokyo'), '%Y%m%d')")
+    date_array = con.select_values("select DATE_FORMAT(convert_tz(test_date,'UTC','Asia/Tokyo'), '%Y-%m-%d') from tests where user_id ="+user_id.to_s+" GROUP BY DATE_FORMAT(convert_tz(test_date,'UTC','Asia/Tokyo'), '%Y%m%d')")
     date_array.reverse!
     p "date_array: #{date_array}"
 
@@ -58,10 +60,30 @@ module UsersHelper
       from = Date.parse(date) - 9.hours
       to = from + 1.day
       p "from: #{from} to #{to}"
-      dategroup_array << [date,tests.where(test_date: from...to)] # .order(test_date: :desc)がいるかいらないかわからない。
+  
+      dategroup_array << [date,tests.where(test_date: from...to).to_a] # .order(test_date: :desc)がいるかいらないかわからない。
+      #dategroup_array << [date,tests.where(test_date: from...to)] # .order(test_date: :desc)がいるかいらないかわからない。
+      
     end
 
+    # 未実施テストが存在する場合は表示しない。
+    dategroup_array[0][1].shift if dategroup_array[0][1][0].ended_at.blank?
+      
     p "dategroup_array: #{dategroup_array}"
     return dategroup_array
+  end
+  
+  #post_typeの現在の総件数を求める
+  def check_entry_num(post_type)
+    return Entry.where(post_type: post_type).count
+  end
+  
+  #userの習熟している単語数を求める（正解数 / テスト実施回数 >= 80%）
+  def check_mastered_entry_num(user_id)
+    con = ActiveRecord::Base.connection
+    mastered_entry_array = con.select_values("select entry_id from tested_entries where test_id IN (select id from tests where user_id = "+user_id.to_s+") GROUP BY entry_id having SUM(result)/count(entry_id) >= 0.8")
+    p "check_mastered_entry_num: #{mastered_entry_array}/#{mastered_entry_array.count}"
+    return mastered_entry_array.count
+
   end
 end

@@ -8,24 +8,47 @@
         <img class="img-circle" src="<%= gravatar_url(@user, { size: 80 }) %>" alt="">
       </div>
     </div>
-    <div class="bridge-mypage-cell" >
-      <div class="user-pane-other user-pane-font-small bold">マスターしている単語<br>@翻訳テスト</div>
-      <div class= "bridge-mypage-box" id="test-circle1"></div>
-        <script>
+    <div class="bridge-mypage-cell honyaku-pane" >
+      <div class="bridge-mypage-cell-honyaku">
+        <div class="user-pane-font-small bold">マスターしている単語<br>@翻訳テスト</div>
+        <div class= "bridge-mypage-box-position-graph" id="circle-graph1"></div>
+          <%# javascript_include_tag 'circlegraph' %>
+          <% percentage1 = check_mastered_entry_num(@user.id).to_f / check_entry_num(2).to_f * 100  %>
+          <div id='percentage1' data-score="<%= percentage1 %>" ></div>
+          <script type="text/javascript">
           $( document ).ready(function() {
-          $('#test-circle1').circliful();
+            score = $('#percentage1').data('score');
+            console.log(score);
+            
+            $('#circle-graph1').circliful({
+              animation: 1,
+              animationStep: 5,
+              foregroundBorderWidth: 20,
+              backgroundBorderWidth: 20,
+              percent: score,
+              textSize: 28,
+              textStyle: 'font-size: 12px;',
+              textColor: '#666',
+              multiPercentage: 1,
+              percentages: [10, 20, 30]
+            });
           });
-        </script>
+          </script>
+        <div class="bridge-mypage-box-position-font"><span class="user-pane-honyaku-score "><%= check_mastered_entry_num(@user.id) %></span><span> 個/<%= check_entry_num(2) %></span></div>
+      </div>
     </div>
   </div>
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 
-    <% dategroup_array = result_dategroup(@tests) %>
+    <% dategroup_array = result_dategroup(@user.id, @tests) %>
     <% dategroup_array.each do |dategroup|  %> 
 
+    <%# 日付を表示 %>
     <div class="testresult-header">
        <span class="bold"><%= dategroup[0][0..10] %></span>
     </div>
+
+    <%# 日付に含まれるテスト結果を表示 %>
     <div class="testresult-date-group">
       <div class="row">
 
@@ -44,3 +67,4 @@
   </div>
   
 </div>
+

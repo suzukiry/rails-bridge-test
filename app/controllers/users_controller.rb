@@ -75,10 +75,8 @@ class UsersController < ApplicationController
     # 親問題の選択肢問題を抽出
     @test_entries.each do |test_entry|
       # 選択肢問題を抽出
-#      option_id_arrays << create_answer_array(TEST_NUM, test_entry.id, post_type)
       option_id_arrays << create_answer_array(test_entry.id, post_type)
 
-      p "親問題: #{test_entry.id} 選択肢: #{option_id_arrays}"
     end
     @option_arrays = id_to_jpn_word(option_id_arrays)
 
@@ -97,33 +95,22 @@ class UsersController < ApplicationController
     @test_id = test.id
     @test_entries = test.show_entries.order("`tested_entries`.`id` asc")
 
-    
-#    @tested_entries = test.tested_entries.order('id')
-#    @tested_entries.each do |tested_entry|
-#      p "BEFORE: tested_entry:#{tested_entry.id} / #{tested_entry.result} /"
-#    end
-    
     # Compare and update score
     answer_array.zip(@test_entries).each do |answer, test_entry|
 
       test_entry_id = test_entry.id
 
-    p "answer: #{answer}, test_entry: #{test_entry.jpn_word}"
       if answer.eql?(test_entry.jpn_word) then
         result = 1
       else
         result = 0
       end
       
-      #@tested_entries.where(entry_id: test_entry_id).update(result: result)
       test.tested_entries.order('id').where(entry_id: test_entry_id).update(result: result)
     end
     test.update_attributes(score: test_score(@test_id), ended_at: Time.now)
     
     @tested_entries = test.tested_entries.order('id asc')
-    @tested_entries.each do |tested_entry|
-      p "AFTER: tested_entry:#{tested_entry.id} / #{tested_entry.result} /"
-    end
 
     # Ready variables for view
     test_entry_1 = @test_entries.to_a()[0]
@@ -132,24 +119,12 @@ class UsersController < ApplicationController
     test_entry_4 = @test_entries.to_a()[3]
     test_entry_5 = @test_entries.to_a()[4]
   
-    p "test_entry_1: #{test_entry_1.jpn_word}"
-    p "test_entry_2: #{test_entry_2.jpn_word}"
-    p "test_entry_3: #{test_entry_3.jpn_word}"
-    p "test_entry_4: #{test_entry_4.jpn_word}"
-    p "test_entry_5: #{test_entry_5.jpn_word}"
-    
     tested_entry_1 = @tested_entries.to_a()[0]
     tested_entry_2 = @tested_entries.to_a()[1] 
     tested_entry_3 = @tested_entries.to_a()[2]
     tested_entry_4 = @tested_entries.to_a()[3] 
     tested_entry_5 = @tested_entries.to_a()[4]
 
-    p "tested_entry_1: #{tested_entry_1.result}"
-    p "tested_entry_2: #{tested_entry_2.result}"
-    p "tested_entry_3: #{tested_entry_3.result}"
-    p "tested_entry_4: #{tested_entry_4.result}"
-    p "tested_entry_5: #{tested_entry_5.result}"
-    
     @test_entry_1 = test_entry_1
     @test_entry_2 = test_entry_2
     @test_entry_3 = test_entry_3
