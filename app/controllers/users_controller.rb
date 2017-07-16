@@ -3,13 +3,11 @@ class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:show]
   
   include UsersHelper
-  
   TEST_NUM = 5
   
   def show
     @user = User.find(params[:id])
     @tests = @user.tests.order("test_date desc")
-    
   end
 
   def new
@@ -36,27 +34,25 @@ class UsersController < ApplicationController
     post_type = 2
 
     #初回ログイン時
-    if current_user.tests.last.nil? then #post_type毎に分ける必要あり
-      
-        test = current_user.tests.build
-        if test.save then
-          flash[:success] = 'テスト作成に成功'
-          test.create_entry(TEST_NUM, post_type)
-          test.update(test_date: Time.now)
-        else
-          flash.now[:danger] = 'テスト作成に失敗'
-          render 'toppages/index'
-        end
-
+#    if current_user.tests.empty?
+#      test = current_user.tests.build
+#        if test.save then
+#          flash[:success] = 'テスト作成に成功'
+#          test.create_entry(TEST_NUM, post_type)
+#          test.update(test_date: Time.now)
+#        else
+#          flash.now[:danger] = 'テスト作成に失敗'
+#          render 'toppages/index'
+#        end
     #2回目以降
-    else
-      #残テストあり
-      if current_user.tests.last.ended_at.nil? then #post_type毎に分ける必要あり
+#    else
+      #2回目以降 かつ 残テストあり の場合
+      if current_user.tests.exists? and current_user.tests.last.ended_at.blank? then #post_type毎に分ける必要あり
         test = current_user.tests.last
-      #残テストなし
+      #初回 または 残テストなし の場合
       else
         test = current_user.tests.build
-   
+
         # テストの作成、テスト問題を作成
         if test.save then
           test.create_entry(TEST_NUM, post_type)
@@ -67,7 +63,7 @@ class UsersController < ApplicationController
           render 'toppages/index'
         end
       end
-    end
+#    end
     
     # 親問題(ユーザが正答を問われるエントリ)を抽出
     @test_entries = test.show_entries.order("`tested_entries`.`id` asc")

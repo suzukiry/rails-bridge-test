@@ -79,7 +79,7 @@ ol, ul {
 }
 .bridge-mypage-box-position-font {
   margin-top: -25px;
-  margin-right: -100px;
+  margin-right: -90px;
   }
 
 .user-pane-honyaku-score {
@@ -117,9 +117,14 @@ ol, ul {
   background-color: #fff;
   /*border-bottom: 1px solid #e2e2e2;*/
   margin-bottom: 5px;
-  
 }
 
+.mypage-startup {
+  background-color: #fff;
+  padding: 20px;
+  min-height: 500px;
+
+}
 
 /* ***************************************************** 
  * honyaku_test 

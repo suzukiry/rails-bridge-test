@@ -54,7 +54,6 @@ module UsersHelper
     con = ActiveRecord::Base.connection
     date_array = con.select_values("select DATE_FORMAT(convert_tz(test_date,'UTC','Asia/Tokyo'), '%Y-%m-%d') from tests where user_id ="+user_id.to_s+" GROUP BY DATE_FORMAT(convert_tz(test_date,'UTC','Asia/Tokyo'), '%Y%m%d')")
     date_array.reverse!
-    p "date_array: #{date_array}"
 
     date_array.each do |date|
       from = Date.parse(date) - 9.hours
@@ -63,12 +62,15 @@ module UsersHelper
   
       dategroup_array << [date,tests.where(test_date: from...to).to_a] # .order(test_date: :desc)がいるかいらないかわからない。
       #dategroup_array << [date,tests.where(test_date: from...to)] # .order(test_date: :desc)がいるかいらないかわからない。
+      p "dategroup_array: #{dategroup_array}"
       
     end
 
     # 未実施テストが存在する場合は表示しない。
-    dategroup_array[0][1].shift if dategroup_array[0][1][0].ended_at.blank?
-      
+    if dategroup_array.nil? then
+      dategroup_array[0][1].shift if dategroup_array[0][1][0].ended_at.blank?
+    end
+
     p "dategroup_array: #{dategroup_array}"
     return dategroup_array
   end
