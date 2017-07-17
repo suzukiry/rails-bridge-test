@@ -3,7 +3,9 @@
     <div class="cover-inner">
       <div class="cover-contents">
         <% unless logged_in? %>
-          <%= link_to "英語すこし勉強してみますか？", signup_path, class: "btn btn-primary" %>
+          <%= link_to "英語、勉強してみますか？", signup_path, class: "btn btn-default" %>
+        <% else %>
+          <img class="img-circle" src="<%= image_path 'sloth.png' %>"　height="250" width="250" alt="翻訳テスト image">
         <% end %>
       </div>
     </div>
@@ -45,7 +47,5 @@
       </div>
   </div>
 
-<% else %>
-  <!-- 試しのテストを挿入 -->
 <% end %>
 

@@ -9,9 +9,8 @@
 		function showNotification(color){
 					$( "#notification" ).removeClass(def);
 					$( "#notification" ).addClass(color);
-					def=color;
 					$( "#notification" ).fadeIn( "slow" );
-					$(".notification").fadeOut(1000);
+					$( ".notification" ).fadeOut(2000);
 		}
 		
 		$(document).ready(function() {

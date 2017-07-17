@@ -22,10 +22,10 @@
 
   <body>
     <%= render 'layouts/navbar' %>
+    <%= render 'layouts/flash_messages' %>
     <%= yield :cover %>
 
-    <div class="container content">
-      <%= render 'layouts/flash_messages' %>
+    <div class="container">
       <%= yield %>
     </div>
     <%= render 'layouts/footer' %>

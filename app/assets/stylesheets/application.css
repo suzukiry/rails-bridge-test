@@ -13,15 +13,58 @@ body {
   display: flex;
   flex-direction: column;
 }
-.footer {
-  margin-top: 40px;
-  min-height: 50px;
-  background: #ffffff;
-  flex-shrink: 0; 
-  border-top: 1px solid #e2e2e2;
-  
+
+body #footer-container {
+    margin-top: 20px;
+    background-color: #fff;
+    border-top: 1px solid #e2e2e2;
 }
-.content {
+#footer {
+    margin: 0 auto;
+    padding: 10px 0;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+
+}
+#footer-main {
+    border-bottom: 1px solid #e2e2e2;
+    padding-bottom: 10px;
+    font-size: 12px;
+}
+#footer-links {
+    padding: 10px 0 10px 8px;
+}
+#footer-links ul {
+    list-style: none;
+}
+
+#footer-main a, #footer-links-primary a, #footer-links-secondary a {
+    color: #666;
+    font-weight: 700;
+}
+#footer-main a:hover {
+    color: #337ab7;
+    font-weight: 700;
+}
+
+#footer-links-primary {
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 11px;    
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+#footer-links-secondary {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 11px;
+}
+.container {
   flex: 1;
 }
 
@@ -404,9 +447,9 @@ ul {
 	/*position: absolute;*/
 	/*z-index: 2;*/
 	/*top:30%;*/
+	/*min-height: 20px;*/
 	margin-top: -20px;
 	text-align: center;
-	/*min-height: 20px;*/
 	font-family: sans-serif;
 }
 
