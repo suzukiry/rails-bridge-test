@@ -46,16 +46,27 @@ module UsersHelper
     return result_collection
   end
   
-  #各日付ごとのテスト結果を返却
+  #日付ごとのテスト結果を返却
   #ex) [["2017-07-31 UTC XX:XX:XX",tests object],["2017-07-30 UTC XX:XX:XX", tests object],,,]
   def result_dategroup(user_id, tests)
     dategroup_array = []
+    jpt_date_array = []
     
-    con = ActiveRecord::Base.connection
-    date_array = con.select_values("select DATE_FORMAT(convert_tz(test_date,'UTC','Asia/Tokyo'), '%Y-%m-%d') from tests where user_id ="+user_id.to_s+" GROUP BY DATE_FORMAT(convert_tz(test_date,'UTC','Asia/Tokyo'), '%Y%m%d')")
-    date_array.reverse!
+#    con = ActiveRecord::Base.connection
+#    date_array = con.select_values("select DATE_FORMAT(convert_tz(test_date,'UTC','Asia/Tokyo'), '%Y-%m-%d') from tests where user_id ="+user_id.to_s+" GROUP BY DATE_FORMAT(convert_tz(test_date,'UTC','Asia/Tokyo'), '%Y%m%d')")
+    
+    utc_date_array = current_user.tests.pluck(:test_date)
+    
+    utc_date_array.each do |utc_date|
+      jpt_date_array << utc_date.in_time_zone("Asia/Tokyo").to_s[0..9]
+      p "jpt_date: #{utc_date.in_time_zone("Asia/Tokyo").to_s[0..9]}"
+    end
 
-    date_array.each do |date|
+#    date_array.reverse!
+    jpt_date_array.reverse!
+
+#    date_array.each do |date|
+     jpt_date_array.uniq.each do |date|
       from = Date.parse(date) - 9.hours
       to = from + 1.day
       p "from: #{from} to #{to}"
