@@ -47,10 +47,16 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+#production:
+#  adapter: postgresql
+#  encoding: unicode
+#  pool: 5
+#  database: bridge_production
+#  username: bridge
+#  password: <%= ENV['BRIDGE_DATABASE_PASSWORD'] %>
+
 production:
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
-  database: bridge_production
-  username: bridge
-  password: <%= ENV['BRIDGE_DATABASE_PASSWORD'] %>
+  <<: *default
+  database: heroku_4f3a63ce54f7645
+  username: b949c59a98cc17
+  password: <%= ENV['DATABASE_PASSWORD'] %>
