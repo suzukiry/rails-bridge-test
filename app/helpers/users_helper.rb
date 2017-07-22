@@ -83,7 +83,8 @@ module UsersHelper
   #userの習熟している単語数を求める（正解数 / テスト実施回数 >= 80%）
   def check_mastered_entry_num(user_id)
     con = ActiveRecord::Base.connection
-    mastered_entry_array = con.select_values("select entry_id from tested_entries where test_id IN (select id from tests where user_id = "+user_id.to_s+") GROUP BY entry_id having SUM(CAST(result AS SIGNED INTEGER))/COUNT(entry_id) >= 0.8")
+    mastered_entry_array = con.select_values("select entry_id from tested_entries where test_id IN (select id from tests where user_id = "+user_id.to_s+") GROUP BY entry_id having SUM(CAST(result AS INTEGER))/COUNT(entry_id) >= 0.8") # POSTGRE SQL
+#    mastered_entry_array = con.select_values("select entry_id from tested_entries where test_id IN (select id from tests where user_id = "+user_id.to_s+") GROUP BY entry_id having SUM(CAST(result AS SIGNED INTEGER))/COUNT(entry_id) >= 0.8") # MYSQL
 #    mastered_entry_array = con.select_values("select entry_id from tested_entries where test_id IN (select id from tests where user_id = "+user_id.to_s+") GROUP BY entry_id having SUM(result)/COUNT(entry_id) >= 0.8")
     p "check_mastered_entry_num: #{mastered_entry_array}/#{mastered_entry_array.count}"
     return mastered_entry_array.count
