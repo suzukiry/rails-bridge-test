@@ -22,18 +22,20 @@
           
             score = $('#percentage1').data('score');
             console.log(score);
-            
-            $('#circle-graph1').circliful({
-              animation: 1,
-              animationStep: 5,
-              foregroundBorderWidth: 20,
-              backgroundBorderWidth: 20,
-              percent: score,
-              textSize: 28,
-              textStyle: 'font-size: 12px;',
-              textColor: '#666',
-              multiPercentage: 1,
-              percentages: [10, 20, 30]
+
+            $( document ).ready(function() {
+              $('#circle-graph1').circliful({
+                animation: 1,
+                animationStep: 5,
+                foregroundBorderWidth: 20,
+                backgroundBorderWidth: 20,
+                percent: score,
+                textSize: 28,
+                textStyle: 'font-size: 12px;',
+                textColor: '#666',
+                multiPercentage: 1,
+                percentages: [10, 20, 30]
+              });
             });
 
           </script>

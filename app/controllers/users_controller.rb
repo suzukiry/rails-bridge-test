@@ -34,42 +34,34 @@ class UsersController < ApplicationController
     post_type = 2
     test = Test.new
 
-    # 未実施のテストの存在確認
+    # 過去のテストに完了済みでないテストがある場合
     if current_user.tests.exists?(ended_at: nil)
 
-      # post_type=2の存在確認
+      # ended_atがnil、かつ post_type=2のテストの存在確認
       current_user.tests.where(ended_at: nil).each do |existingtest|
-        # post_type=2がある場合
+        # post_type=2がある場合は該当未実施テストを実施
         if existingtest.show_entries.last.post_type == post_type then
           test = existingtest
         end
       end
-      # post_type=2がない場合
+      # 過去の完了済みでないテストに、post_type=2がない場合
       if test.id.blank?
         test = current_user.tests.build
-
-        # テストの作成、テスト問題を作成
-        if test.save then
-          test.create_entry(TEST_NUM, post_type)
-          test.update(test_date: Time.now)
-          flash[:success] = 'テスト作成に成功'
-        else
-          flash.now[:danger] = 'テスト作成に失敗'
-          render 'toppages/index'
-        end
       end
+    # 過去のテストがすべて実施済みの場合
     else
+      # 新規にtestを作成する
       test = current_user.tests.build
+    end
 
-      # テストの作成、テスト問題を作成
-      if test.save then
-        test.create_entry(TEST_NUM, post_type)
-        test.update(test_date: Time.now)
-        flash[:success] = 'テスト作成に成功'
-      else
-        flash.now[:danger] = 'テスト作成に失敗'
-        render 'toppages/index'
-      end
+    # テストの作成、テスト問題を作成
+    if test.save then
+      test.create_entry(TEST_NUM, post_type)
+      test.update(test_date: Time.now)
+      flash[:success] = 'テスト作成に成功'
+    else
+      flash.now[:danger] = 'テスト作成に失敗'
+      render 'toppages/index'
     end
 
     # 親問題(ユーザが正答を問われるエントリ)を抽出
