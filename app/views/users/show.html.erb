@@ -13,10 +13,13 @@
         <div class="user-pane-font-small bold">マスターしている単語<br>@翻訳テスト</div>
         <div class= "bridge-mypage-box-position-graph" id="circle-graph1"></div>
           <%# javascript_include_tag 'circlegraph' %>
+          <%# 習熟した単語のパーセンテージを計算 %>
           <% percentage1 = check_mastered_entry_num(@user.id).to_f / check_entry_num(2).to_f * 100  %>
+
+          <%# パーセンテージを整数にしてjavascriptに引き渡し %>
           <div id='percentage1' data-score="<%= percentage1.floor %>" ></div>
           <script type="text/javascript">
-          $( document ).ready(function() {
+          
             score = $('#percentage1').data('score');
             console.log(score);
             
@@ -32,7 +35,7 @@
               multiPercentage: 1,
               percentages: [10, 20, 30]
             });
-          });
+
           </script>
         <div class="bridge-mypage-box-position-font"><span class="user-pane-honyaku-score "><%= check_mastered_entry_num(@user.id) %></span><span> 個/<%= check_entry_num(2) %></span></div>
       </div>
