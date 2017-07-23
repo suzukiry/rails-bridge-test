@@ -14,7 +14,7 @@
         <div class= "bridge-mypage-box-position-graph" id="circle-graph1"></div>
           <%# javascript_include_tag 'circlegraph' %>
           <% percentage1 = check_mastered_entry_num(@user.id).to_f / check_entry_num(2).to_f * 100  %>
-          <div id='percentage1' data-score="<%= percentage1 %>" ></div>
+          <div id='percentage1' data-score="<%= percentage1.floor %>" ></div>
           <script type="text/javascript">
           $( document ).ready(function() {
             score = $('#percentage1').data('score');
