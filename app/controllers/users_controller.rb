@@ -5,15 +5,25 @@ class UsersController < ApplicationController
   include UsersHelper
   TEST_NUM = 5
   
+  
+  # ******************************************************
+  # * アクション：マイページ表示
+  # ******************************************************
   def show
     @user = User.find(params[:id])
     @tests = @user.tests.order("test_date desc")
   end
 
+  # ******************************************************
+  # * アクション：ユーザ作成（未使用）
+  # ******************************************************
   def new
     @user = User.new
   end
 
+  # ******************************************************
+  # * アクション：ユーザ作成
+  # ******************************************************
   def create
     @user = User.new(user_params)
 
@@ -26,7 +36,9 @@ class UsersController < ApplicationController
     end
   end
 
-  # 翻訳テスト
+  # ******************************************************
+  # * アクション：翻訳テスト作成
+  # ******************************************************
   def honyaku
     option_id_arrays = Array.new
 
@@ -34,16 +46,18 @@ class UsersController < ApplicationController
     post_type = 2
     test = Test.new
 
-    # 過去のテストに完了済みでないテストがある場合
+    # 過去のテストに未完了テストがある場合
     if current_user.tests.exists?(ended_at: nil)
-      # ended_atがnil、かつ post_type=2のテストの存在確認
+      # ended_atがnil、かつ post_type=2の未完了テストの存在確認
       current_user.tests.where(ended_at: nil).each do |existingtest|
-        # post_type=2がある場合は該当未実施テストを実施
+        # post_type=2がある場合は該当未完了テストを再登録
         if existingtest.show_entries.last.post_type == post_type then
           test = existingtest
+          
+          # テスト作成、テスト問題作成は無し
         end
       end
-      # 過去の完了済みでないテストに、post_type=2がない場合
+      # testの更新がなかった場合（過去の未完了テストに、post_type=2がない場合）
       if test.id.blank?
         test = current_user.tests.build
 
@@ -51,7 +65,7 @@ class UsersController < ApplicationController
         if test.save then
           test.create_entry(TEST_NUM, post_type)
           test.update(test_date: Time.now)
-          flash[:success] = 'テスト作成に成功'
+          #flash[:success] = 'テスト作成に成功' #ページ遷移によって適切なflashにならないため、一旦コメントアウト
         else
           flash.now[:danger] = 'テスト作成に失敗'
           render 'toppages/index'
@@ -67,14 +81,12 @@ class UsersController < ApplicationController
       if test.save then
         test.create_entry(TEST_NUM, post_type)
         test.update(test_date: Time.now)
-        flash[:success] = 'テスト作成に成功'
+        #flash[:success] = 'テスト作成に成功' #ページ遷移によって適切なflashにならないため、一旦コメントアウト
       else
         flash.now[:danger] = 'テスト作成に失敗'
         render 'toppages/index'
       end
     end
-
-
 
     # 親問題(ユーザが正答を問われるエントリ)を抽出
     @test_entries = test.show_entries.order("`tested_entries`.`id` asc")
@@ -88,7 +100,10 @@ class UsersController < ApplicationController
     @option_arrays = id_to_jpn_word(option_id_arrays)
 
   end
-  
+
+  # ******************************************************
+  # * アクション：翻訳テスト結果受け取り
+  # ******************************************************
   def honyaku_result
     # TEST_NUM毎に必要
     answer_array = Array.new
@@ -119,7 +134,9 @@ class UsersController < ApplicationController
     
     @tested_entries = test.tested_entries.order('id asc')
 
-    # Ready variables for view
+    # Ready variables for view *To be fixed as advised by Sugimura san.
+    # (1..5).map {|i| “radio#{i}“.to_sym}
+    # => [:radio1, :radio2, :radio3, :radio4, :radio5]
     test_entry_1 = @test_entries.to_a()[0]
     test_entry_2 = @test_entries.to_a()[1]
     test_entry_3 = @test_entries.to_a()[2]
@@ -146,6 +163,9 @@ class UsersController < ApplicationController
   
   end
   
+  # ******************************************************
+  # * 以降、private method定義
+  # ******************************************************
   private
   
   def user_params
