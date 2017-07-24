@@ -11,19 +11,26 @@
     <div class="bridge-mypage-cell honyaku-pane" >
       <div class="bridge-mypage-cell-honyaku">
         <div class="user-pane-font-small bold">マスターしている単語<br>@翻訳テスト</div>
+        <%# 習熟した単語のパーセンテージを計算 %>
+        <% percentage1 = check_mastered_entry_num(@user.id).to_f / check_entry_num(2).to_f * 100  %>
+
+        <%# パーセンテージを整数にしてjavascriptに引き渡し %>
+        <div id='percentage1' data-score="<%= percentage1.floor %>" ></div>
         <div class= "bridge-mypage-box-position-graph" id="circle-graph1"></div>
           <%# javascript_include_tag 'circlegraph' %>
-          <%# 習熟した単語のパーセンテージを計算 %>
-          <% percentage1 = check_mastered_entry_num(@user.id).to_f / check_entry_num(2).to_f * 100  %>
-
-          <%# パーセンテージを整数にしてjavascriptに引き渡し %>
-          <div id='percentage1' data-score="<%= percentage1.floor %>" ></div>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/circliful/1.0.4/js/jquery.circliful.min.js"></script>
           <script type="text/javascript">
-          
-            score = $('#percentage1').data('score');
-            console.log(score);
 
             $( document ).ready(function() {
+            //$( window ).load(function() {
+            //  $(document).on('click', '.message__unstarring', function () {
+    
+              score = $('#percentage1').data('score');
+              //score = $(this).data('score');
+              //score = $('#percentage1').attr("data-score");
+              //score = $(this).attr("data-id");
+              console.log(score);
+
               $('#circle-graph1').circliful({
                 animation: 1,
                 animationStep: 5,
@@ -36,6 +43,7 @@
                 multiPercentage: 1,
                 percentages: [10, 20, 30]
               });
+
             });
 
           </script>
