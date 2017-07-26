@@ -1,5 +1,5 @@
 function getRandomTimeforResult() {
-  return Math.floor(Math.random() * 501 ) + 500;
+  return Math.floor(Math.random() * 501 ) + 400;
 }
 
 $(function(){
@@ -7,8 +7,9 @@ $(function(){
   $('#result1').html(
     "<%= escape_javascript(render 'honyaku_results_1') %>"
   );
-  $('#result1').fadeIn(getRandomTimeforResult());
-  
+//  $('#result1').fadeIn(getRandomTimeforResult());
+  $('#result1').fadeIn();
+
 });
 
 $(function(){
@@ -16,8 +17,8 @@ $(function(){
   $('#result2').html(
     "<%= escape_javascript(render 'honyaku_results_2') %>"
   );
-  $('#result2').fadeIn(getRandomTimeforResult());
-  
+//  $('#result2').fadeIn(getRandomTimeforResult());
+  $('#result2').fadeIn();
 });
 
 $(function(){
@@ -25,8 +26,8 @@ $(function(){
   $('#result3').html(
     "<%= escape_javascript(render 'honyaku_results_3') %>"
   );
-  $('#result3').fadeIn(getRandomTimeforResult());
-  
+//  $('#result3').fadeIn(getRandomTimeforResult());
+  $('#result3').fadeIn();
 });
 
 $(function(){
@@ -34,7 +35,8 @@ $(function(){
   $('#result4').html(
     "<%= escape_javascript(render 'honyaku_results_4') %>"
   );
-  $('#result4').fadeIn(getRandomTimeforResult());
+//  $('#result4').fadeIn(getRandomTimeforResult());
+  $('#result4').fadeIn();
 });
 
 $(function(){
@@ -42,7 +44,8 @@ $(function(){
   $('#result5').html(
     "<%= escape_javascript(render 'honyaku_results_5') %>"
   );
-  $('#result5').fadeIn(getRandomTimeforResult());
+//  $('#result5').fadeIn(getRandomTimeforResult());
+  $('#result5').fadeIn();
 });
 
 $(function(){
@@ -54,7 +57,26 @@ $(function(){
       "<%= escape_javascript(render 'honyaku_button') %>"
     );
 
-  $('#test_record').fadeIn(1000);
+//  $('#test_record').fadeIn(1000);
+  $('#test_record').fadeIn();
+
+  $(window).resize(function(){
+      var width = $(window).width();
+      
+      console.log("*********************" + width + "*********************");
+      if (width > 767) {
+
+        setTimeout(function(){
+          var $container = $('#mansory-parent');
+          $container.imagesLoaded( function() {
+            $container.masonry({
+              itemSelector : '.run-masonry'
+            });
+          });
+        },2000);
+      }
+  });
+
 });
 
 

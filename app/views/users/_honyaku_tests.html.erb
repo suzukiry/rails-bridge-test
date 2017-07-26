@@ -1,15 +1,30 @@
 <!-- 翻訳テストテンプレートパーシャル -->
 <% num = 0 %>
-
+<div class="masonry-parent">
+  
+  
 <!-- 翻訳テストパーシャル呼び出し -->
 <% if test_entries.any? %>
   <%= form_tag({ action: :honyaku_result }, id: :ajax_form, remote: true) do %>
+
     <% test_entries.each do |test_entry| %>
       <%= render 'users/honyaku_test', num: num, test_entry: test_entry, option_array: option_arrays[num] %>
       <% num += 1 %>
     <% end %>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 run-masonry">
       <%= submit_tag '採点する', class: "honyaku_submit btn btn-default btn-lg", id: "honyaku_submit" %>
     </div>
+
 	<% end %>
 <% end %>
+
+</div>
+      <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>-->
+      <!--<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>-->
+      <% javascript_include_tag 'imagesloaded.pkgd.min' %>
+      <% javascript_include_tag 'masonry.pkgd.min' %>
+
+
+
+  

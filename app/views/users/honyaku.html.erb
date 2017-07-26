@@ -6,17 +6,24 @@
     </div>
 
     <!-- テスト問題表示 -->
-    <div class="row">
+    <div class="row" id="mansory-parent">
       <!-- 翻訳テストテンプレート表示-->
       <div id="honyaku_test">
           <%= render 'users/honyaku_tests', test_entries: @test_entries, option_arrays: @option_arrays %>
       </div>
-
+      <%# javascript_include_tag 'imagesloaded.pkgd.min' %>
+      <%# javascript_include_tag 'masonry.pkgd.min' %>
+      
       <!-- テスト結果表示 -->
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 run-masonry">
         <div class ="test-record" id="test_record">
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
           <%= javascript_include_tag 'application' %>
+
         </div>
       </div>
     </div>
+    <% javascript_include_tag 'imagesloaded.pkgd.min' %>
+    <% javascript_include_tag 'masonry.pkgd.min' %>
+
+

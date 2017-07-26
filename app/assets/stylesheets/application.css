@@ -250,7 +250,7 @@ ol, ul {
 .offer-default .shape{
 	border-color: transparent #999999 transparent transparent;
 }
-.offer-primary {	border-color: #428bca; }
+.offer-primary {	border-color: #428bca; min-height: 220px;}
 .offer-primary .shape{
 	border-color: transparent #428bca transparent transparent;
 }

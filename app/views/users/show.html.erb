@@ -30,8 +30,9 @@
               //score = $('#percentage1').attr("data-score");
               //score = $(this).attr("data-id");
               console.log(score);
-
-              $('#circle-graph1').circliful({
+              var $circleContainer = $('#circle-graph1');
+//              $('#circle-graph1').circliful({
+                $circleContainer.circliful({
                 animation: 1,
                 animationStep: 5,
                 foregroundBorderWidth: 20,

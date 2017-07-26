@@ -12,16 +12,21 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <%= stylesheet_link_tag    'jquery.circliful' %>
-    <%# javascript_include_tag 'jquery.circliful.min' %>
+
+    <!--<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>-->
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/circliful/1.0.4/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
 
-
-
+    <%# stylesheet_link_tag    'jquery.circliful' %>
+    <%# javascript_include_tag 'jquery.circliful.min' %>
+    <%# javascript_include_tag 'runmasonry' %>
+    <%# javascript_include_tag 'masonry.pkgd.min' %>
+    <%# javascript_include_tag 'imagesloaded.pkgd.min' %>
+    <!--<script src="masonry.pkgd.min.js"></script>-->
+    <!--<script src="runmasonry.js"></script>-->
   </head>
 
   <body>
@@ -33,5 +38,7 @@
       <%= yield %>
     </div>
     <%= render 'layouts/footer' %>
+    
+    
   </body>
 </html>
