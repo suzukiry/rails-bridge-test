@@ -29,8 +29,8 @@ namespace :scraping do
   desc "retrieve title"
     task :bridge_scrape => :environment do 
       #2017/07, 06, 05, 04, 03, 02
-      URL = 'http://bridge-english.blogspot.jp/2017/01/'
-      #URL = 'http://bridge-english.blogspot.jp/'
+      #URL = 'http://bridge-english.blogspot.jp/2017/01/'
+      URL = 'http://bridge-english.blogspot.jp/'
       doc = Nokogiri::HTML.parse(open(URL), nil, "UTF-8") 
 
       new_posts = doc.xpath('//div[@class="date-outer"]')
