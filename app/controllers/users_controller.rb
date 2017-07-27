@@ -110,7 +110,7 @@ class UsersController < ApplicationController
     # (1..5).map {|i| “radio#{i}“.to_sym}
     # => [:radio1, :radio2, :radio3, :radio4, :radio5]
     answer_array = Array.new
-    (1..TEST_NUM).map {|i| answer_array << "radio#{i}".to_sym}
+    (1..TEST_NUM).map {|i| answer_array << params["radio#{i}".to_sym]}
 =begin
     answer_array << params[:radio1]
     answer_array << params[:radio2]
