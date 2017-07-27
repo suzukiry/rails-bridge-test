@@ -106,12 +106,18 @@ class UsersController < ApplicationController
   # ******************************************************
   def honyaku_result
     # TEST_NUM毎に必要
+    # Ready variables for view *To be fixed as advised by Sugimura san.
+    # (1..5).map {|i| “radio#{i}“.to_sym}
+    # => [:radio1, :radio2, :radio3, :radio4, :radio5]
     answer_array = Array.new
+    (1..TEST_NUM).map {|i| answer_array << "radio#{i}".to_sym}
+=begin
     answer_array << params[:radio1]
     answer_array << params[:radio2]
     answer_array << params[:radio3]
     answer_array << params[:radio4]
     answer_array << params[:radio5]
+=end
 
     test = current_user.tests.last
     @test_id = test.id
@@ -134,9 +140,6 @@ class UsersController < ApplicationController
     
     @tested_entries = test.tested_entries.order('id asc')
 
-    # Ready variables for view *To be fixed as advised by Sugimura san.
-    # (1..5).map {|i| “radio#{i}“.to_sym}
-    # => [:radio1, :radio2, :radio3, :radio4, :radio5]
     test_entry_1 = @test_entries.to_a()[0]
     test_entry_2 = @test_entries.to_a()[1]
     test_entry_3 = @test_entries.to_a()[2]
