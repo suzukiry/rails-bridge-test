@@ -59,7 +59,7 @@ module UsersHelper
     
     utc_date_array.each do |utc_date|
       jpt_date_array << utc_date.in_time_zone("Asia/Tokyo").to_s[0..9]
-      p "jpt_date: #{utc_date.in_time_zone("Asia/Tokyo").to_s[0..9]}"
+#      p "jpt_date: #{utc_date.in_time_zone("Asia/Tokyo").to_s[0..9]}"
     end
 
 #    date_array.reverse!
@@ -69,11 +69,11 @@ module UsersHelper
      jpt_date_array.uniq.each do |date|
       from = Date.parse(date) - 9.hours
       to = from + 1.day
-      p "from: #{from} to #{to}"
+#      p "from: #{from} to #{to}"
   
       dategroup_array << [date,tests.where(test_date: from...to).to_a] # .order(test_date: :desc)がいるかいらないかわからない。
       #dategroup_array << [date,tests.where(test_date: from...to)] # .order(test_date: :desc)がいるかいらないかわからない。
-      p "dategroup_array: #{dategroup_array}"
+#      p "dategroup_array: #{dategroup_array}"
       
     end
 
@@ -82,7 +82,7 @@ module UsersHelper
       dategroup_array[0][1].shift if dategroup_array[0][1][0].ended_at.blank?
     end
 
-    p "dategroup_array: #{dategroup_array}"
+#    p "dategroup_array: #{dategroup_array}"
     return dategroup_array
   end
   
@@ -97,7 +97,7 @@ module UsersHelper
 #    mastered_entry_array = con.select_values("select entry_id from tested_entries where test_id IN (select id from tests where user_id = "+user_id.to_s+") GROUP BY entry_id having SUM(CAST(result AS INTEGER))/COUNT(entry_id) >= 0.8") # POSTGRE SQL
     mastered_entry_array = con.select_values("select entry_id from tested_entries where test_id IN (select id from tests where user_id = "+user_id.to_s+") GROUP BY entry_id having SUM(CAST(result AS SIGNED INTEGER))/COUNT(entry_id) >= 0.8") # MYSQL
 #    mastered_entry_array = con.select_values("select entry_id from tested_entries where test_id IN (select id from tests where user_id = "+user_id.to_s+") GROUP BY entry_id having SUM(result)/COUNT(entry_id) >= 0.8")
-    p "check_mastered_entry_num: #{mastered_entry_array}/#{mastered_entry_array.count}"
+#    p "check_mastered_entry_num: #{mastered_entry_array}/#{mastered_entry_array.count}"
     return mastered_entry_array.count
 
   end

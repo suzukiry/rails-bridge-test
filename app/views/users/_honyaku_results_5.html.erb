@@ -10,7 +10,7 @@
 <div id="description_5"></div>
 <%= javascript_tag do %>
   html= <%= raw @test_entry_5.description.to_json %>;
-  console.log(html)
+  //console.log(html)
   function writeHtml() {
     document.getElementById("description_5").innerHTML = html;
   }
