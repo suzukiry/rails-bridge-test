@@ -12,6 +12,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @tests = @user.tests.order("test_date desc")
+    # 過去３日間分の結果を表示
+    @test_results = Kaminari.paginate_array(result_dategroup(@user.id, @tests)).page(params[:page]).per(3)
+
   end
 
   # ******************************************************
