@@ -54,9 +54,8 @@
   </div>
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
 
-    <% dategroup_array = result_dategroup(@user.id, @tests) %>
-    <% if dategroup_array.present? %>
-      <% dategroup_array.each do |dategroup|  %> 
+    <% if @test_results.present? %>
+      <% @test_results.each do |dategroup|  %> 
   
         <%# 日付を表示 %>
         <div class="testresult-header">
@@ -74,9 +73,11 @@
                 </div>
               </div>
             <% end %>
+            
           </div>
         </div>
       <% end %>
+    <%= paginate @test_results %>
     <% else %>
       <div class="mypage-startup">たくさんテストを受けていきましょう！</div>
     <% end %>
