@@ -76,11 +76,21 @@ module UsersHelper
 #      p "dategroup_array: #{dategroup_array}"
       
     end
-
+    p "debug1:dategroup_array.nil?: #{dategroup_array.nil?}"
+    p "debug2: #{dategroup_array}"
+    p "debug3: #{dategroup_array[0][1]}"
+    p "debug4: #{dategroup_array[0][1][0]}"
+    p "debug5: #{dategroup_array[0][1][1]}"
     # 未実施テストが存在する場合は表示しない。
-    if dategroup_array.nil? then
-      dategroup_array[0][1].shift if dategroup_array[0][1][0].ended_at.blank?
+    # Bug. To be fixed. 
+    # dategroup_array[0][1][0] [0]:０番目のgroupで、[1]:１番目がdate groupに含まれるテスト結果。[0]:その０番目が未実施テスト。
+    if dategroup_array[0][1][0].ended_at.nil? then
+      dategroup_array[0][1].shift
     end
+    # 未実施テストが存在する場合は表示しない。
+#    if dategroup_array.nil? then
+#      dategroup_array[0][1].shift if dategroup_array[0][1][0].ended_at.blank?
+#    end
 
 #    p "dategroup_array: #{dategroup_array}"
     return dategroup_array
